@@ -9,3 +9,7 @@ export const loginUserAction = (email, password, dispatch) => ({
     payload: { email, password },
     dispatch
 });
+
+export const logoutAction = () => ({
+    type: authTypes.LOGOUT
+});

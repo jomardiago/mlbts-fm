@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const NavBar = () => {
+import { logoutAction } from '../../redux/auth/authActions';
+
+const NavBar = ({ auth, logout }) => {
+    const { isAuthenticated } = auth;
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <Link className="navbar-brand" to="/">MLBTS - Franchise Manager</Link>
@@ -11,16 +16,34 @@ const NavBar = () => {
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/login">Login</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/register">Register</Link>
-                    </li>
+                    {
+                        !isAuthenticated ? (
+                            <Fragment>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/login">Login</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/register">Register</Link>
+                                </li>
+                            </Fragment>
+                        ) : (
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/" onClick={(e) => logout()}>Logout</Link>
+                            </li>
+                        )
+                    }
                 </ul>
             </div>
         </nav>
     );
 };
 
-export default NavBar;
+const mapDispatchToProps = dispatch => ({
+    logout: () => dispatch(logoutAction())
+});
+
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
