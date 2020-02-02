@@ -7,7 +7,6 @@ const config = require('config');
 const auth = require('../../middleware/auth');
 
 const Player = require('../../models/Player');
-const User = require('../../models/User');
 
 // @route   GET api/roster
 // @desc    Get all players
