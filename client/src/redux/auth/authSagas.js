@@ -20,7 +20,7 @@ function* loadUserWorker(action) {
         yield put({ type: authTypes.LOAD_USER_SUCCESS, payload: data });
     } catch (err) {
         console.log(err);
-        yield put({ type: authTypes.LOAD_USER_FAILED });
+        yield put({ type: authTypes.AUTHENTICATION_FAILED });
     }
 }
 
@@ -47,7 +47,7 @@ function* loginUserWorker(action) {
             errors.forEach(error => action.dispatch(setAlert(error.msg, 'danger')));
         }
 
-        yield put({ type: authTypes.LOGIN_USER_FAILED });
+        yield put({ type: authTypes.AUTHENTICATION_FAILED });
     }
 }
 

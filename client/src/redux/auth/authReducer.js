@@ -24,8 +24,7 @@ export default function(state = initialState, action) {
                 isAuthenticated: true,
                 loading: false
             };
-        case authTypes.LOAD_USER_FAILED:
-        case authTypes.LOGIN_USER_FAILED:
+        case authTypes.AUTHENTICATION_FAILED:
             localStorage.removeItem('token');
             return {
                 ...state,
