@@ -8,6 +8,10 @@ import Landing from './components/landing/Landing';
 import Login from './components/login/Login';
 import NavBar from './components/navbar/NavBar';
 import Register from './components/register/Register';
+import Dashboard from './components/dashboard/Dashboard';
+import Alert from './components/alert/Alert';
+
+import PrivateRoute from './components/routing/PrivateRoute';
 
 import store from './store';
 import setAuthToken from './utils/setAuthToken';
@@ -26,10 +30,12 @@ function App() {
         <Fragment>
           <NavBar />
           <div className="container">
+            <Alert />
             <Switch>
               <Route exact path="/" component={Landing} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>
           </div>
         </Fragment>
