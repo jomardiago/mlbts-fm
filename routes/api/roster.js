@@ -69,15 +69,15 @@ router.put('/player/:id', [ auth, [
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
     const { firstName, lastName, primaryPosition, secondaryPosition, potential, overall } = req.body;
-    const playerFields = {};
-    playerFields.user = req.user.id;
-
-    if (firstName) playerFields.firstName = firstName;
-    if (lastName) playerFields.lastName = lastName;
-    if (primaryPosition) playerFields.primaryPosition = primaryPosition;
-    if (secondaryPosition) playerFields.secondaryPosition = secondaryPosition;
-    if (potential) playerFields.potential = potential;
-    if (overall) playerFields.overall = overall;
+    const playerFields = {
+        user: req.user.id,
+        firstName,
+        lastName,
+        primaryPosition,
+        secondaryPosition,
+        potential,
+        overall
+    };
 
     try {
         const player = await Player.findByIdAndUpdate(req.params.id, { $set: playerFields }, { new: true });
