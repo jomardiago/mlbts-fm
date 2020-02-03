@@ -75,25 +75,30 @@ router.put('/player/:id', [ auth, [
     check('lastName', 'Last name is required').not().isEmpty(),
     check('primaryPosition', 'Primary position is required').not().isEmpty(),
     check('potential', 'Potential is required').not().isEmpty(),
-    check('overall', 'Overall is required').not().isEmpty()
+    check('overall', 'Overall is required').not().isEmpty(),
+    check('year', 'Year is required').not().isEmpty(),
+    check('league', 'League is required').not().isEmpty()
 ] ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-    const { firstName, lastName, primaryPosition, secondaryPosition, potential, overall } = req.body;
-    const playerFields = {
-        user: req.user.id,
-        firstName,
-        lastName,
-        primaryPosition,
-        secondaryPosition,
-        potential,
-        overall
-    };
-
     try {
-        const player = await Player.findByIdAndUpdate(req.params.id, { $set: playerFields }, { new: true });
-        return res.json(player);
+        const { firstName, lastName, primaryPosition, secondaryPosition, potential, overall, year, league } = req.body;
+        const player = await Player.findById(req.params.id);
+        let playerProgression = player.progression;
+        playerProgression.unshift({ year, league, potential, overall });
+        const playerFields = {
+            user: req.user.id,
+            firstName,
+            lastName,
+            primaryPosition,
+            secondaryPosition,
+            potential,
+            overall,
+            progression: playerProgression
+        };
+        const updatedPlayer = await Player.findByIdAndUpdate(req.params.id, { $set: playerFields }, { new: true });
+        return res.json(updatedPlayer);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
