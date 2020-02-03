@@ -11,6 +11,7 @@ import Register from './components/register/Register';
 import Dashboard from './components/dashboard/Dashboard';
 import Roster from './components/roster/Roster';
 import AddPlayer from './components/roster/AddPlayer';
+import UpdatePlayer from './components/roster/UpdatePlayer';
 import Alert from './components/alert/Alert';
 
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -40,6 +41,7 @@ function App() {
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/roster" component={Roster} />
               <PrivateRoute exact path="/roster/create-player" component={AddPlayer} />
+              <PrivateRoute exact path="/roster/update-player/:id" component={UpdatePlayer} />
             </Switch>
           </div>
         </Fragment>

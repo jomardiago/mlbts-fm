@@ -55,4 +55,37 @@ router.post('/player', [ auth, [
     }
 });
 
+// @route   PUT api/roster/player/:id
+// @desc    Update a player
+// @acess   Private
+router.put('/player/:id', [ auth, [
+    check('firstName', 'First name is required').not().isEmpty(),
+    check('lastName', 'Last name is required').not().isEmpty(),
+    check('primaryPosition', 'Primary position is required').not().isEmpty(),
+    check('potential', 'Potential is required').not().isEmpty(),
+    check('overall', 'Overall is required').not().isEmpty()
+] ], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+    const { firstName, lastName, primaryPosition, secondaryPosition, potential, overall } = req.body;
+    const playerFields = {};
+    playerFields.user = req.user.id;
+
+    if (firstName) playerFields.firstName = firstName;
+    if (lastName) playerFields.lastName = lastName;
+    if (primaryPosition) playerFields.primaryPosition = primaryPosition;
+    if (secondaryPosition) playerFields.secondaryPosition = secondaryPosition;
+    if (potential) playerFields.potential = potential;
+    if (overall) playerFields.overall = overall;
+
+    try {
+        const player = await Player.findByIdAndUpdate(req.params.id, { $set: playerFields }, { new: true });
+        return res.json(player);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 module.exports = router;

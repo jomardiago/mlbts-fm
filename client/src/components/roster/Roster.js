@@ -40,7 +40,7 @@ const Roster = ({ loadRoster, roster }) => {
                             <td>{player.secondaryPosition}</td>
                             <td>{player.potential}</td>
                             <td>{player.overall}</td>
-                            <td><Link to={`/roster/edit-player/${player._id}`}><i className="fas fa-pencil-alt text-dark"></i></Link></td>
+                            <td><Link to={`/roster/update-player/${player._id}`}><i className="fas fa-pencil-alt text-dark"></i></Link></td>
                         </tr>
                     ))
                 }

@@ -48,3 +48,30 @@ function* createPlayerWorker(action) {
 export function* createPlayerSaga() {
     yield takeLatest(rosterTypes.CREATE_PLAYER_START, createPlayerWorker);
 }
+
+async function updatePlayer(playerId, formData) {
+    const res = await axios.put(`/api/roster/player/${playerId}`, formData, config);
+    return res.data;
+}
+
+function* updatePlayerWorker(action) {
+    const { playerId, formData, dispatch, history } = action.payload;
+
+    try {
+        yield call(updatePlayer, playerId, formData);
+        dispatch(setAlert('Player Updated', 'success'));
+        history.push('/roster');
+    } catch (err) {
+        const { statusText, status } = err.response;
+        const errors = err.response.data.errors;
+        yield put({ type: rosterTypes.UPDATE_PLAYER_FAILED, payload: { msg: statusText, status } });
+
+        if (errors) {
+            errors.forEach(error => action.payload.dispatch(setAlert(error.msg, 'danger')));
+        }
+    }
+}
+
+export function* updatePlayerSaga() {
+    yield takeLatest(rosterTypes.UPDATE_PLAYER_START, updatePlayerWorker);
+}

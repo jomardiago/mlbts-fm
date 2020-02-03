@@ -8,3 +8,8 @@ export const createPlayerAction = (formData, dispatch, history) => ({
     type: rosterTypes.CREATE_PLAYER_START,
     payload: { formData, dispatch, history }
 });
+
+export const updatePlayerAction = (playerId, formData, dispatch, history) => ({
+    type: rosterTypes.UPDATE_PLAYER_START,
+    payload: { playerId, formData, dispatch, history }
+});
