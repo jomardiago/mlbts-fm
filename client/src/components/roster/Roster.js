@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -8,15 +8,67 @@ import { loadRosterAction, deletePlayerAction } from '../../redux/roster/rosterA
 
 const Roster = ({ loadRoster, deletePlayer, roster }) => {
     const { loading, players } = roster;
-
     useEffect(() => {
         loadRoster();
     }, [loadRoster]);
 
-    return loading ? <Spinner /> : (
+    const [ filteredPlayers, setFilteredPlayers ] = useState();
+    useEffect(() => {
+        setFilteredPlayers(players);
+    }, [players]);
+
+    const handleSearchTextChange = e => {
+        const text = e.target.value.toLowerCase();
+        const searchResult = text === '' ? players : players.filter(player => 
+            player.firstName.toLowerCase().includes(text) || player.lastName.toLowerCase().includes(text)  
+        );
+        setFilteredPlayers(searchResult);
+    };
+
+    const handleFilterByPosition = e => {
+        const text = e.target.value;
+        const searchResult = text === '' ? players : players.filter(player => player.primaryPosition === text);
+        setFilteredPlayers(searchResult);
+    };
+
+    return loading || !filteredPlayers ? <Spinner /> : (
         <Fragment>
             <div className="roster-actions mb-2">
-                <Link type="button" className="btn btn-outline-secondary" to="/roster/create-player">Add New Player</Link>
+                <div className="row">
+                    <div className="col col-sm-2">
+                        <Link type="button" className="btn btn-outline-secondary" to="/roster/create-player">Add New Player</Link>
+                    </div>
+                    <div className="col col-sm-5">
+                        <div className="form-group">
+                            <select className="form-control" id="filterByPosition" onChange={e => handleFilterByPosition(e)}>
+                                <option value="">Filter By Position</option>
+                                <option value="SP">SP</option>
+                                <option value="RP">RP</option>
+                                <option value="CP">CP</option>
+                                <option value="C">C</option>
+                                <option value="1B">1B</option>
+                                <option value="2B">2B</option>
+                                <option value="3B">3B</option>
+                                <option value="SS">SS</option>
+                                <option value="LF">LF</option>
+                                <option value="CF">CF</option>
+                                <option value="RF">RF</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="col col-sm-5">
+                        <div className="form-group">
+                            <input 
+                                id="searchText"
+                                name="searchText"
+                                onChange={e => handleSearchTextChange(e)}
+                                type="text"
+                                className="form-control" 
+                                placeholder="Search Table"
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
             <table className="table">
                 <thead className="thead-dark">
@@ -36,7 +88,7 @@ const Roster = ({ loadRoster, deletePlayer, roster }) => {
                 </thead>
                 <tbody>
                     {
-                        players.map(player => (
+                        filteredPlayers.map(player => (
                             <tr key={player._id}>
                                 <td>{player.firstName}</td>
                                 <td>{player.lastName}</td>
