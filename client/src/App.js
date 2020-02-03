@@ -12,6 +12,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import Roster from './components/roster/Roster';
 import AddPlayer from './components/roster/AddPlayer';
 import UpdatePlayer from './components/roster/UpdatePlayer';
+import PlayerProgression from './components/roster/PlayerProgression';
 import Alert from './components/alert/Alert';
 
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -42,6 +43,7 @@ function App() {
               <PrivateRoute exact path="/roster" component={Roster} />
               <PrivateRoute exact path="/roster/create-player" component={AddPlayer} />
               <PrivateRoute exact path="/roster/update-player/:id" component={UpdatePlayer} />
+              <PrivateRoute exact path="/roster/player-progression/:id" component={PlayerProgression} />
             </Switch>
           </div>
         </Fragment>
