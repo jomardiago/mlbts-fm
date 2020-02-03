@@ -22,19 +22,21 @@ router.get('/', auth, async (req, res) => {
 });
 
 // @route   POST api/roster/player
-// @desc    Create or update a player in a roster
+// @desc    Create a player in a roster
 // @acess   Private
 router.post('/player', [ auth, [
     check('firstName', 'First name is required').not().isEmpty(),
     check('lastName', 'Last name is required').not().isEmpty(),
     check('primaryPosition', 'Primary position is required').not().isEmpty(),
     check('potential', 'Potential is required').not().isEmpty(),
-    check('overall', 'Overall is required').not().isEmpty()
+    check('overall', 'Overall is required').not().isEmpty(),
+    check('year', 'Year is required').not().isEmpty(),
+    check('league', 'League is required').not().isEmpty()
 ] ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-    const { firstName, lastName, primaryPosition, secondaryPosition, potential, overall } = req.body;
+    const { firstName, lastName, primaryPosition, secondaryPosition, potential, overall, year, league } = req.body;
     const playerFields = {};
     playerFields.user = req.user.id;
 
@@ -42,8 +44,18 @@ router.post('/player', [ auth, [
     if (lastName) playerFields.lastName = lastName;
     if (primaryPosition) playerFields.primaryPosition = primaryPosition;
     if (secondaryPosition) playerFields.secondaryPosition = secondaryPosition;
+    if (league) playerFields.league = league;
+    if (year) playerFields.year = year;
     if (potential) playerFields.potential = potential;
     if (overall) playerFields.overall = overall;
+
+    playerFields.progression = [];
+    const progress = {};
+    if (year) progress.year = year;
+    if (league) progress.league = league;
+    if (potential) progress.potential = potential;
+    if (overall) progress.overall = overall;
+    playerFields.progression.push(progress); 
 
     try {
         const player = new Player(playerFields);

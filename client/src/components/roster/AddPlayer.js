@@ -10,11 +10,13 @@ const AddPlayer = ({ createPlayer, history }) => {
         lastName: '',
         primaryPosition: '',
         secondaryPosition: '',
+        year: '',
+        league: '',
         potential: '',
         overall: 0
     });
 
-    const { firstName, lastName, primaryPosition, secondaryPosition, potential, overall } = formData;
+    const { firstName, lastName, primaryPosition, secondaryPosition, year, league, potential, overall } = formData;
 
     const onSubmit = e => {
         e.preventDefault();
@@ -70,6 +72,28 @@ const AddPlayer = ({ createPlayer, history }) => {
                     type="secondaryPosition"
                     name="secondaryPosition"
                     value={secondaryPosition}
+                    onChange={e => onChange(e)} 
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="year">Roster Year</label>
+                <input 
+                    id="year"
+                    className="form-control"
+                    type="year"
+                    name="year"
+                    value={year}
+                    onChange={e => onChange(e)} 
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="league">League</label>
+                <input 
+                    id="league"
+                    className="form-control"
+                    type="league"
+                    name="league"
+                    value={league}
                     onChange={e => onChange(e)} 
                 />
             </div>

@@ -14,10 +14,12 @@ const UpdatePlayer = ({ updatePlayer, history, match, roster }) => {
         primaryPosition: (player && player.primaryPosition) ? player.primaryPosition : '',
         secondaryPosition: (player && player.secondaryPosition) ? player.secondaryPosition : '',
         potential: (player && player.potential) ? player.potential : '',
-        overall: (player && player.overall) ? player.overall : ''
+        overall: (player && player.overall) ? player.overall : '',
+        league: (player && player.league) ? player.league : '',
+        year: (player && player.year) ? player.year : '',
     });
 
-    const { firstName, lastName, primaryPosition, secondaryPosition, potential, overall } = formData;
+    const { firstName, lastName, primaryPosition, secondaryPosition, potential, overall, league, year } = formData;
 
     const onSubmit = e => {
         e.preventDefault();
@@ -30,7 +32,7 @@ const UpdatePlayer = ({ updatePlayer, history, match, roster }) => {
 
     return (
         <form onSubmit={e => onSubmit(e)}>
-            <h1 className="large text-primary">Create Player Form</h1>
+            <h1 className="large text-primary">Update Player Form</h1>
             <p className="lead"><i className="fas fa-user"></i> Add a new player to your roster</p>
             <div className="form-group">
                 <label htmlFor="firstName">First Name</label>
@@ -73,6 +75,28 @@ const UpdatePlayer = ({ updatePlayer, history, match, roster }) => {
                     type="secondaryPosition"
                     name="secondaryPosition"
                     value={secondaryPosition}
+                    onChange={e => onChange(e)} 
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="year">Roster Year</label>
+                <input 
+                    id="year"
+                    className="form-control"
+                    type="year"
+                    name="year"
+                    value={year}
+                    onChange={e => onChange(e)} 
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="league">League</label>
+                <input 
+                    id="league"
+                    className="form-control"
+                    type="league"
+                    name="league"
+                    value={league}
                     onChange={e => onChange(e)} 
                 />
             </div>

@@ -23,6 +23,8 @@ const Roster = ({ loadRoster, deletePlayer, roster }) => {
                     <tr>
                         <th scope="col">First Name</th>
                         <th scope="col">Last Name</th>
+                        <th scope="col">League</th>
+                        <th scope="col">Year</th>
                         <th scope="col">Primary Position</th>
                         <th scope="col">Secondary Position</th>
                         <th scope="col">Potential</th>
@@ -38,6 +40,8 @@ const Roster = ({ loadRoster, deletePlayer, roster }) => {
                             <tr key={player._id}>
                                 <td>{player.firstName}</td>
                                 <td>{player.lastName}</td>
+                                <td>{player.league}</td>
+                                <td>{player.year}</td>
                                 <td>{player.primaryPosition}</td>
                                 <td>{player.secondaryPosition}</td>
                                 <td>{player.potential}</td>
