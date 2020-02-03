@@ -9,6 +9,8 @@ import Login from './components/login/Login';
 import NavBar from './components/navbar/NavBar';
 import Register from './components/register/Register';
 import Dashboard from './components/dashboard/Dashboard';
+import Roster from './components/roster/Roster';
+import AddPlayer from './components/roster/AddPlayer';
 import Alert from './components/alert/Alert';
 
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -36,6 +38,8 @@ function App() {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/roster" component={Roster} />
+              <PrivateRoute exact path="/roster/create-player" component={AddPlayer} />
             </Switch>
           </div>
         </Fragment>

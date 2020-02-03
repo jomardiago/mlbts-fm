@@ -9,6 +9,7 @@ export default function* rootSaga() {
         call(authSagas.loadUserSaga),
         call(authSagas.loginUserSaga),
         call(rosterSagas.loadRosterSaga),
+        call(rosterSagas.createPlayerSaga),
         call(alertSagas.setAlert)
     ]);
 }

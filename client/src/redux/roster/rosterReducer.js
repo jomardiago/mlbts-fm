@@ -15,6 +15,12 @@ export default function(state = INITIAL_STATE, action) {
                 players: payload,
                 loading: false
             };
+        case rosterTypes.CREATE_PLAYER_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error: payload
+            };
         default:
             return state;
     }

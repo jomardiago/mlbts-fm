@@ -27,9 +27,17 @@ const NavBar = ({ auth, logout }) => {
                                 </li>
                             </Fragment>
                         ) : (
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/" onClick={(e) => logout()}>Logout</Link>
-                            </li>
+                            <Fragment>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/dashboard">Dashboard</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/roster">Roster</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/" onClick={(e) => logout()}>Logout</Link>
+                                </li>
+                            </Fragment>
                         )
                     }
                 </ul>

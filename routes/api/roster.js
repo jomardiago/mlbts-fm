@@ -28,7 +28,6 @@ router.post('/player', [ auth, [
     check('firstName', 'First name is required').not().isEmpty(),
     check('lastName', 'Last name is required').not().isEmpty(),
     check('primaryPosition', 'Primary position is required').not().isEmpty(),
-    check('secondaryPosition', 'Secondary Position is required').not().isEmpty(),
     check('potential', 'Potential is required').not().isEmpty(),
     check('overall', 'Overall is required').not().isEmpty()
 ] ], async (req, res) => {
