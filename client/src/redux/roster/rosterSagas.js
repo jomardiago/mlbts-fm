@@ -75,3 +75,24 @@ function* updatePlayerWorker(action) {
 export function* updatePlayerSaga() {
     yield takeLatest(rosterTypes.UPDATE_PLAYER_START, updatePlayerWorker);
 }
+
+async function deletePlayer(playerId) {
+    const res = await axios.delete(`/api/roster/player/${playerId}`);
+    return res.data;
+}
+
+function* deletePlayerWorker(action) {
+    const { playerId, dispatch } = action.payload;
+    try {
+        yield call(deletePlayer, playerId);
+        dispatch(setAlert('Player Deleted', 'danger'));
+        yield put({ type: rosterTypes.DELETE_PLAYER_SUCCESS, payload: playerId });
+    } catch (err) {
+        const { statusText, status } = err.response;
+        yield put({ type: rosterTypes.DELETE_PLAYER_FAILED, payload: { msg: statusText, status } });
+    }
+}
+
+export function* deletePlayerSaga() {
+    yield takeLatest(rosterTypes.DELETE_PLAYER_START, deletePlayerWorker);
+}

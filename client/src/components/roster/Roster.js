@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 import Spinner from '../spinner/Spinner';
 
-import { loadRosterAction } from '../../redux/roster/rosterActions';
+import { loadRosterAction, deletePlayerAction } from '../../redux/roster/rosterActions';
 
-const Roster = ({ loadRoster, roster }) => {
+const Roster = ({ loadRoster, deletePlayer, roster }) => {
     const { loading, players } = roster;
 
     useEffect(() => {
@@ -28,6 +28,7 @@ const Roster = ({ loadRoster, roster }) => {
                     <th scope="col">Potential</th>
                     <th scope="col">Overall</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -40,7 +41,14 @@ const Roster = ({ loadRoster, roster }) => {
                             <td>{player.secondaryPosition}</td>
                             <td>{player.potential}</td>
                             <td>{player.overall}</td>
-                            <td><Link to={`/roster/update-player/${player._id}`}><i className="fas fa-pencil-alt text-dark"></i></Link></td>
+                            <td>
+                                <Link to={`/roster/update-player/${player._id}`}>
+                                    <i className="fas fa-pencil-alt text-dark"></i>
+                                </Link>
+                            </td>
+                            <td>
+                                <i className="fas fa-trash-alt" style={{ cursor: 'pointer' }} onClick={e => deletePlayer(player._id)}></i>
+                            </td>
                         </tr>
                     ))
                 }
@@ -55,7 +63,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    loadRoster: () => dispatch(loadRosterAction())
+    loadRoster: () => dispatch(loadRosterAction()),
+    deletePlayer: (playerId) => dispatch(deletePlayerAction(playerId, dispatch))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Roster);

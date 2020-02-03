@@ -13,3 +13,8 @@ export const updatePlayerAction = (playerId, formData, dispatch, history) => ({
     type: rosterTypes.UPDATE_PLAYER_START,
     payload: { playerId, formData, dispatch, history }
 });
+
+export const deletePlayerAction = (playerId, dispatch) => ({
+    type: rosterTypes.DELETE_PLAYER_START,
+    payload: { playerId, dispatch }
+});

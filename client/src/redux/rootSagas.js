@@ -11,6 +11,7 @@ export default function* rootSaga() {
         call(rosterSagas.loadRosterSaga),
         call(rosterSagas.createPlayerSaga),
         call(rosterSagas.updatePlayerSaga),
+        call(rosterSagas.deletePlayerSaga),
         call(alertSagas.setAlert)
     ]);
 }

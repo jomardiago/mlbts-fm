@@ -15,7 +15,15 @@ export default function(state = INITIAL_STATE, action) {
                 players: payload,
                 loading: false
             };
+        case rosterTypes.DELETE_PLAYER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                players: state.players.filter(player => player._id !== payload)
+            };
         case rosterTypes.CREATE_PLAYER_FAILED:
+        case rosterTypes.UPDATE_PLAYER_FAILED:
+        case rosterTypes.DELETE_PLAYER_FAILED:
             return {
                 ...state,
                 loading: false,

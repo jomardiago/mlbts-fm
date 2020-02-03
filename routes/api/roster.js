@@ -88,4 +88,17 @@ router.put('/player/:id', [ auth, [
     }
 });
 
+// @route   DELETE api/roster/player/:id
+// @desc    Delete a player
+// @acess   Private
+router.delete('/player/:id', auth, async (req, res) => {
+    try {
+        const player = await Player.findByIdAndRemove(req.params.id);
+        return res.json(player);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 module.exports = router;
