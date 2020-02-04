@@ -27,7 +27,7 @@ const Roster = ({ loadRoster, deletePlayer, roster }) => {
 
     const handleFilterByPosition = e => {
         const text = e.target.value;
-        const searchResult = text === '' ? players : players.filter(player => player.primaryPosition === text);
+        const searchResult = text === '' ? players : players.filter(player => player.primaryPosition.toLowerCase() === text.toLowerCase());
         setFilteredPlayers(searchResult);
     };
 

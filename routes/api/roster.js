@@ -86,7 +86,16 @@ router.put('/player/:id', [ auth, [
         const { firstName, lastName, primaryPosition, secondaryPosition, potential, overall, year, league } = req.body;
         const player = await Player.findById(req.params.id);
         let playerProgression = player.progression;
-        playerProgression.unshift({ year, league, potential, overall });
+        let updatedProgression = [];
+        const progressionExists = playerProgression.filter(progress => progress.year === year).length > 0;
+
+        if (progressionExists) {
+            updatedProgression = playerProgression.map(progress => progress.year === year ? ({ year, league, potential, overall }) : progress);
+            playerProgression = updatedProgression;
+        } else {
+            playerProgression.unshift({ year, league, potential, overall });
+        }
+
         const playerFields = {
             user: req.user.id,
             firstName,
@@ -95,6 +104,8 @@ router.put('/player/:id', [ auth, [
             secondaryPosition,
             potential,
             overall,
+            year,
+            league,
             progression: playerProgression
         };
         const updatedPlayer = await Player.findByIdAndUpdate(req.params.id, { $set: playerFields }, { new: true });

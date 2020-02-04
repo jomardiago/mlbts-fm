@@ -7,8 +7,8 @@ const PlayerProgression = ({ roster, match }) => {
     const player = players.filter(player => player._id === match.params.id)[0];
     player.progression.sort((a, b) => (a.year < b.year) ? 1 : -1);
     const otherPositionPlayers = players.filter(otherPositionPlayer => 
-        otherPositionPlayer.primaryPosition === player.primaryPosition ||
-        otherPositionPlayer.secondaryPosition.includes(player.primaryPosition)
+        otherPositionPlayer.primaryPosition === player.primaryPosition 
+        //|| (otherPositionPlayer.secondaryPosition && otherPositionPlayer.secondaryPosition.includes(player.primaryPosition))
     ).sort((a, b) => (a.overall < b.overall) ? 1 : -1);
 
     return (

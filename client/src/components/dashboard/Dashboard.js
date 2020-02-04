@@ -6,7 +6,7 @@ import Spinner from '../spinner/Spinner';
 import { loadRosterAction } from '../../redux/roster/rosterActions';
 
 const Dashboard = ({ loadRoster, roster }) => {
-    const { loading } = roster;
+    const { loading, players } = roster;
 
     useEffect(() => {
         loadRoster();
@@ -15,7 +15,7 @@ const Dashboard = ({ loadRoster, roster }) => {
     return loading ? <Spinner /> : (
         <Fragment>
             <div className="jumbotron">
-                Dashboard page under construction...
+                <p><strong>Total number of players: {players.length}</strong></p>
             </div>
         </Fragment>
     );
