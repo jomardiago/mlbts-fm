@@ -31,6 +31,17 @@ const Roster = ({ loadRoster, deletePlayer, roster }) => {
         setFilteredPlayers(searchResult);
     };
 
+    const handleSortByOverall = e => {
+        const sortType = e.target.value;
+        let sortResult;
+        if (sortType === 'ascending') {
+            sortResult = players.slice().sort((a, b) => (a.overall > b.overall) ? 1 : -1);
+        } else {
+            sortResult = players.slice().sort((a, b) => (a.overall < b.overall) ? 1 : -1);
+        }
+        setFilteredPlayers(sortResult);
+    };
+
     return loading || !filteredPlayers ? <Spinner /> : (
         <Fragment>
             <div className="roster-actions mb-2">
@@ -38,7 +49,7 @@ const Roster = ({ loadRoster, deletePlayer, roster }) => {
                     <div className="col col-sm-2">
                         <Link type="button" className="btn btn-outline-secondary" to="/roster/create-player">Add New Player</Link>
                     </div>
-                    <div className="col col-sm-5">
+                    <div className="col col-sm-4">
                         <div className="form-group">
                             <select className="form-control" id="filterByPosition" onChange={e => handleFilterByPosition(e)}>
                                 <option value="">Filter By Position</option>
@@ -56,7 +67,16 @@ const Roster = ({ loadRoster, deletePlayer, roster }) => {
                             </select>
                         </div>
                     </div>
-                    <div className="col col-sm-5">
+                    <div className="col col-sm-3">
+                        <div className="form-group">
+                            <select className="form-control" id="sortByOverall" onChange={e => handleSortByOverall(e)}>
+                                <option value="">Sort By Overall</option>
+                                <option value="ascending">Ascending</option>
+                                <option value="descending">Descending</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="col col-sm-3">
                         <div className="form-group">
                             <input 
                                 id="searchText"
