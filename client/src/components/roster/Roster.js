@@ -45,6 +45,12 @@ const Roster = ({ loadRoster, deletePlayer, roster }) => {
         setFilteredPlayers(sortResult);
     };
 
+    const handleDelete = playerId => {
+        if (window.confirm('Are you sure you want to remove player?')) {
+            deletePlayer(playerId);
+        }
+    };
+
     return loading || !filteredPlayers ? <Spinner /> : (
         <Fragment>
             <div className="roster-actions mb-2">
@@ -131,7 +137,7 @@ const Roster = ({ loadRoster, deletePlayer, roster }) => {
                                     </Link>
                                 </td>
                                 <td>
-                                    <i className="fas fa-trash-alt" style={{ cursor: 'pointer' }} onClick={e => deletePlayer(player._id)}></i>
+                                    <i className="fas fa-trash-alt" style={{ cursor: 'pointer' }} onClick={e => handleDelete(player._id)}></i>
                                 </td>
                                 <td>
                                     <Link to={`/roster/player-progression/${player._id}`}>
