@@ -23,7 +23,18 @@ const UpdatePlayer = ({ updatePlayer, history, match, roster }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        updatePlayer(id, formData, history);
+
+        const playerProgress = player.progression.filter(progress => progress.year === formData.year)[0];
+
+        if (playerProgress) {
+            if (playerProgress.potential !== formData.potential || playerProgress.overall !== formData.overall) {
+                if (window.confirm('You are trying to update an existing progress year with updated potential or overall. Proceed?')) {
+                    updatePlayer(id, formData, history);
+                }
+            }
+        } else {
+            updatePlayer(id, formData, history);
+        }
     };
 
     const onChange = e => {
