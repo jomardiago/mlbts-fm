@@ -57,7 +57,8 @@ function* updatePlayerWorker(action) {
     const { playerId, formData, dispatch, history } = action.payload;
 
     try {
-        yield call(updatePlayer, playerId, formData);
+        const player = yield call(updatePlayer, playerId, formData);
+        yield put({ type: rosterTypes.UPDATE_PLAYER_SUCCESS, payload: player });
         dispatch(setAlert('Player Updated', 'success'));
         history.push('/roster');
     } catch (err) {

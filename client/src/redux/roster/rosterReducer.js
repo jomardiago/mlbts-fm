@@ -21,6 +21,12 @@ export default function(state = INITIAL_STATE, action) {
                 players: [...state.players, payload],
                 loading: false
             };
+        case rosterTypes.UPDATE_PLAYER_SUCCESS:
+            return {
+                ...state,
+                players: state.players.map(player => player._id === payload._id ? payload : player),
+                loading: false
+            }
         case rosterTypes.DELETE_PLAYER_SUCCESS:
             return {
                 ...state,
