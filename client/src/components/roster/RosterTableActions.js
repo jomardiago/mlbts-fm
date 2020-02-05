@@ -5,13 +5,27 @@ const RosterTableActions = ({ handleFilterChange, handleSortByOverall, handleSea
     return (
         <div className="roster-actions mb-2">
             <div className="row">
+                <div className="col col-sm-10">
+                    <div className="form-group">
+                        <input 
+                            id="searchText"
+                            name="searchText"
+                            onChange={e => handleSearchTextChange(e)}
+                            type="text"
+                            className="form-control" 
+                            placeholder="Search Table By Name"
+                        />
+                    </div>
+                </div>
                 <div className="col col-sm-2">
                     <Link type="button" className="btn btn-outline-primary" to="/roster/create-player">Add New Player</Link>
                 </div>
+            </div>
+            <div className="row">
                 <div className="col col-sm-4">
                     <div className="form-group">
-                        <select className="form-control" id="filterByPosition" onChange={e => handleFilterChange(e)}>
-                            <option value="">Filter By Position or League</option>
+                        <select className="form-control" id="filterByPosition" onChange={e => handleFilterChange(e, 'position')}>
+                            <option value="">Filter By Position</option>
                             <option value="SP">SP</option>
                             <option value="RP">RP</option>
                             <option value="CP">CP</option>
@@ -23,6 +37,13 @@ const RosterTableActions = ({ handleFilterChange, handleSortByOverall, handleSea
                             <option value="LF">LF</option>
                             <option value="CF">CF</option>
                             <option value="RF">RF</option>
+                        </select>
+                    </div>
+                </div>
+                <div className="col col-sm-4">
+                    <div className="form-group">
+                        <select className="form-control" id="filterByPosition" onChange={e => handleFilterChange(e, 'league')}>
+                            <option value="">Filter By League</option>
                             <option value="MLB">MLB</option>
                             <option value="AAA">AAA</option>
                             <option value="AA">AA</option>
@@ -30,25 +51,13 @@ const RosterTableActions = ({ handleFilterChange, handleSortByOverall, handleSea
                         </select>
                     </div>
                 </div>
-                <div className="col col-sm-3">
+                <div className="col col-sm-4">
                     <div className="form-group">
                         <select className="form-control" id="sortByOverall" onChange={e => handleSortByOverall(e)}>
                             <option value="">Sort By Overall</option>
                             <option value="ascending">Ascending</option>
                             <option value="descending">Descending</option>
                         </select>
-                    </div>
-                </div>
-                <div className="col col-sm-3">
-                    <div className="form-group">
-                        <input 
-                            id="searchText"
-                            name="searchText"
-                            onChange={e => handleSearchTextChange(e)}
-                            type="text"
-                            className="form-control" 
-                            placeholder="Search Table By Name"
-                        />
                     </div>
                 </div>
             </div>

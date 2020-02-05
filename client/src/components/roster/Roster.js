@@ -19,12 +19,17 @@ const Roster = ({ deletePlayer, roster }) => {
         setFilteredPlayers(searchResult);
     };
 
-    const handleFilterChange = e => {
+    const handleFilterChange = (e, type) => {
         const text = e.target.value;
-        const searchResult = text === '' ? players : 
-        players.filter(player => player.primaryPosition.toLowerCase() === text.toLowerCase() || 
-        player.league.toLowerCase() === text.toLowerCase());
-        setFilteredPlayers(searchResult);
+        let searchResult = [];
+
+        if (type === 'position') {
+            searchResult = text === '' ? players : filteredPlayers.filter(player => player.primaryPosition.toLowerCase() === text.toLowerCase());
+            setFilteredPlayers(searchResult);
+        } else if (type === 'league') {
+            searchResult = text === '' ? players : filteredPlayers.filter(player => player.league.toLowerCase() === text.toLowerCase());
+            setFilteredPlayers(searchResult);
+        }
     };
 
     const handleSortByOverall = e => {
