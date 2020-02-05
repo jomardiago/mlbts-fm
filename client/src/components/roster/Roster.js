@@ -18,16 +18,19 @@ const Roster = ({ loadRoster, deletePlayer, roster }) => {
     }, [players]);
 
     const handleSearchTextChange = e => {
-        const text = e.target.value.toLowerCase();
+        const text = e.target.value.toLowerCase().replace(' ', '');
         const searchResult = text === '' ? players : players.filter(player => 
-            player.firstName.toLowerCase().includes(text) || player.lastName.toLowerCase().includes(text)  
+            player.firstName.toLowerCase().includes(text) || player.lastName.toLowerCase().includes(text) || 
+            player.firstName.toLowerCase().concat(player.lastName.toLowerCase()).includes(text)
         );
         setFilteredPlayers(searchResult);
     };
 
-    const handleFilterByPosition = e => {
+    const handleFilterChange = e => {
         const text = e.target.value;
-        const searchResult = text === '' ? players : players.filter(player => player.primaryPosition.toLowerCase() === text.toLowerCase());
+        const searchResult = text === '' ? players : 
+        players.filter(player => player.primaryPosition.toLowerCase() === text.toLowerCase() || 
+        player.league.toLowerCase() === text.toLowerCase());
         setFilteredPlayers(searchResult);
     };
 
@@ -47,12 +50,12 @@ const Roster = ({ loadRoster, deletePlayer, roster }) => {
             <div className="roster-actions mb-2">
                 <div className="row">
                     <div className="col col-sm-2">
-                        <Link type="button" className="btn btn-outline-secondary" to="/roster/create-player">Add New Player</Link>
+                        <Link type="button" className="btn btn-outline-primary" to="/roster/create-player">Add New Player</Link>
                     </div>
                     <div className="col col-sm-4">
                         <div className="form-group">
-                            <select className="form-control" id="filterByPosition" onChange={e => handleFilterByPosition(e)}>
-                                <option value="">Filter By Position</option>
+                            <select className="form-control" id="filterByPosition" onChange={e => handleFilterChange(e)}>
+                                <option value="">Filter By Position or League</option>
                                 <option value="SP">SP</option>
                                 <option value="RP">RP</option>
                                 <option value="CP">CP</option>
@@ -64,6 +67,10 @@ const Roster = ({ loadRoster, deletePlayer, roster }) => {
                                 <option value="LF">LF</option>
                                 <option value="CF">CF</option>
                                 <option value="RF">RF</option>
+                                <option value="MLB">MLB</option>
+                                <option value="AAA">AAA</option>
+                                <option value="AA">AA</option>
+                                <option value="A">A</option>
                             </select>
                         </div>
                     </div>
@@ -84,7 +91,7 @@ const Roster = ({ loadRoster, deletePlayer, roster }) => {
                                 onChange={e => handleSearchTextChange(e)}
                                 type="text"
                                 className="form-control" 
-                                placeholder="Search Table"
+                                placeholder="Search Table By Name"
                             />
                         </div>
                     </div>
