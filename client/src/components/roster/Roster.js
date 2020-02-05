@@ -12,7 +12,7 @@ const Roster = ({ deletePlayer, roster }) => {
 
     const handleSearchTextChange = e => {
         const text = e.target.value.toLowerCase().replace(' ', '');
-        const searchResult = text === '' ? filteredPlayers : filteredPlayers.filter(player => 
+        const searchResult = text === '' ? players : filteredPlayers.filter(player => 
             player.firstName.toLowerCase().includes(text) || player.lastName.toLowerCase().includes(text) || 
             player.firstName.toLowerCase().concat(player.lastName.toLowerCase()).includes(text)
         );
