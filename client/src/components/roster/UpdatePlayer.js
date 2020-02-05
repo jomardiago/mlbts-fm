@@ -31,6 +31,8 @@ const UpdatePlayer = ({ updatePlayer, history, match, roster }) => {
                 if (window.confirm('You are trying to update an existing progress year with updated potential or overall. Proceed?')) {
                     updatePlayer(id, formData, history);
                 }
+            } else {
+                updatePlayer(id, formData, history);
             }
         } else {
             updatePlayer(id, formData, history);
