@@ -140,7 +140,7 @@ const AddPlayer = ({ createPlayer, history }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    createPlayer: (formData, history) => dispatch(createPlayerAction(formData, dispatch))
+    createPlayer: (formData) => dispatch(createPlayerAction(formData, dispatch))
 });
 
 export default connect(null, mapDispatchToProps)(AddPlayer);
