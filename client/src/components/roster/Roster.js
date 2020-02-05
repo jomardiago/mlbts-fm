@@ -112,8 +112,8 @@ const Roster = ({ loadRoster, deletePlayer, roster }) => {
                         <th scope="col">Year</th>
                         <th scope="col">Primary Position</th>
                         <th scope="col">Secondary Position</th>
-                        <th scope="col">Potential</th>
                         <th scope="col">Overall</th>
+                        <th scope="col">Potential</th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -129,8 +129,8 @@ const Roster = ({ loadRoster, deletePlayer, roster }) => {
                                 <td>{player.year}</td>
                                 <td>{player.primaryPosition}</td>
                                 <td>{player.secondaryPosition}</td>
-                                <td>{player.potential}</td>
                                 <td>{player.overall}</td>
+                                <td>{player.potential}</td>
                                 <td>
                                     <Link to={`/roster/update-player/${player._id}`}>
                                         <i className="fas fa-pencil-alt text-dark"></i>
