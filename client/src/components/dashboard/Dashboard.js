@@ -1,5 +1,6 @@
 import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Spinner from '../spinner/Spinner';
 
@@ -14,9 +15,9 @@ const Dashboard = ({ loadRoster, roster }) => {
 
     return loading ? <Spinner /> : (
         <Fragment>
-            <div className="jumbotron">
-                <p><strong>Total number of players: {players.length}</strong></p>
-            </div>
+            <Link className="btn btn-primary" to="/roster">
+                View Current Roster <span className="badge badge-light">{ players.length }</span>
+            </Link>
         </Fragment>
     );
 };

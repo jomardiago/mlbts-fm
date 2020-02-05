@@ -20,6 +20,7 @@ const AddPlayer = ({ createPlayer, history }) => {
 
     const onSubmit = e => {
         e.preventDefault();
+        document.getElementById('firstName').focus();
         createPlayer(formData, history);
         setFormData({ firstName: '', lastName: '', primaryPosition: '', secondaryPosition: '', year: '', league: '', potential: '', overall: 0 });
     };

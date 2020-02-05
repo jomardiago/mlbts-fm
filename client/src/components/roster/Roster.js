@@ -1,21 +1,13 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import Spinner from '../spinner/Spinner';
+import { deletePlayerAction } from '../../redux/roster/rosterActions';
 
-import { loadRosterAction, deletePlayerAction } from '../../redux/roster/rosterActions';
+const Roster = ({ deletePlayer, roster }) => {
+    const { players } = roster;
 
-const Roster = ({ loadRoster, deletePlayer, roster }) => {
-    const { loading, players } = roster;
-    useEffect(() => {
-        loadRoster();
-    }, [loadRoster]);
-
-    const [ filteredPlayers, setFilteredPlayers ] = useState();
-    useEffect(() => {
-        setFilteredPlayers(players);
-    }, [players]);
+    const [ filteredPlayers, setFilteredPlayers ] = useState(players);
 
     const handleSearchTextChange = e => {
         const text = e.target.value.toLowerCase().replace(' ', '');
@@ -51,7 +43,7 @@ const Roster = ({ loadRoster, deletePlayer, roster }) => {
         }
     };
 
-    return loading || !filteredPlayers ? <Spinner /> : (
+    return (
         <Fragment>
             <div className="roster-actions mb-2">
                 <div className="row">
@@ -158,7 +150,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    loadRoster: () => dispatch(loadRosterAction()),
     deletePlayer: (playerId) => dispatch(deletePlayerAction(playerId, dispatch))
 });
 

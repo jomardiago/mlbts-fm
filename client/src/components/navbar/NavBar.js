@@ -32,9 +32,6 @@ const NavBar = ({ auth, logout }) => {
                                     <Link className="nav-link" to="/dashboard">Dashboard</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/roster">Roster</Link>
-                                </li>
-                                <li className="nav-item">
                                     <Link className="nav-link" to="/" onClick={(e) => logout()}>Logout</Link>
                                 </li>
                             </Fragment>
