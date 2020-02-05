@@ -4,9 +4,9 @@ export const loadRosterAction = () => ({
     type: rosterTypes.LOAD_ROSTER_START
 });
 
-export const createPlayerAction = (formData, dispatch, history) => ({
+export const createPlayerAction = (formData, dispatch) => ({
     type: rosterTypes.CREATE_PLAYER_START,
-    payload: { formData, dispatch, history }
+    payload: { formData, dispatch }
 });
 
 export const updatePlayerAction = (playerId, formData, dispatch, history) => ({

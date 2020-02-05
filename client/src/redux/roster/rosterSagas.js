@@ -33,7 +33,6 @@ function* createPlayerWorker(action) {
         const player = yield call(createPlayer, action.payload.formData);
         yield put({ type: rosterTypes.CREATE_PLAYER_SUCCESS, payload: player });
         action.payload.dispatch(setAlert('Player Created', 'success'));
-        action.payload.history.push('/roster');
     } catch (err) {
         const { statusText, status } = err.response;
         const errors = err.response.data.errors;
