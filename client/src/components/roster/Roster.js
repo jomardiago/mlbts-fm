@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -43,6 +43,10 @@ const Roster = ({ deletePlayer, roster }) => {
             deletePlayer(playerId);
         }
     };
+
+    useEffect(() => {
+        setFilteredPlayers(players);
+    }, [setFilteredPlayers, players]);
 
     return (
         <Fragment>
