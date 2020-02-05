@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 
 const PlayerProgression = ({ roster, match }) => {
     const { players } = roster;
+
     const player = players.filter(player => player._id === match.params.id)[0];
     player.progression.sort((a, b) => (a.year < b.year) ? 1 : -1);
+
     const otherPositionPlayers = players.filter(otherPositionPlayer => 
-        otherPositionPlayer.primaryPosition === player.primaryPosition 
-        //|| (otherPositionPlayer.secondaryPosition && otherPositionPlayer.secondaryPosition.includes(player.primaryPosition))
-    ).sort((a, b) => (a.overall < b.overall) ? 1 : -1);
+        otherPositionPlayer.primaryPosition === player.primaryPosition).sort((a, b) => (a.overall < b.overall) ? 1 : -1
+    );
 
     return (
         <Fragment>
@@ -22,7 +23,7 @@ const PlayerProgression = ({ roster, match }) => {
                                     <h3>{player.firstName} {player.lastName}</h3>
                                 </div>
                                 <div className="col col-sm-2">
-                                    <Link className="btn btn-primary ml-auto" to="/roster">Go Back</Link>
+                                    <Link className="btn btn-outline-primary ml-auto" to="/roster">Back To Roster</Link>
                                 </div>
                             </div>
                         </div>
