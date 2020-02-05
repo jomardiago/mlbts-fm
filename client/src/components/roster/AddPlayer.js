@@ -21,6 +21,7 @@ const AddPlayer = ({ createPlayer, history }) => {
     const onSubmit = e => {
         e.preventDefault();
         createPlayer(formData, history);
+        setFormData({ firstName: '', lastName: '', primaryPosition: '', secondaryPosition: '', year: '', league: '', potential: '', overall: 0 });
     };
 
     const onChange = e => {
@@ -43,6 +44,7 @@ const AddPlayer = ({ createPlayer, history }) => {
                             type="text"
                             name="firstName"
                             placeholder="Enter First Name"
+                            autoFocus
                             value={firstName}
                             onChange={e => onChange(e)} 
                         />
