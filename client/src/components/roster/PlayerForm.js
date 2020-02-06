@@ -2,9 +2,9 @@ import React, { useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 
-import { updatePlayerAction } from '../../redux/roster/rosterActions';
+import { createPlayerAction, updatePlayerAction } from '../../redux/roster/rosterActions';
 
-const UpdatePlayer = ({ updatePlayer, history, match, roster }) => {
+const PlayerForm = ({ roster, updatePlayer, history, match, createPlayer }) => {
     const id = match.params.id;
     const player = roster.players.filter(player => player._id === id)[0];
 
@@ -21,26 +21,32 @@ const UpdatePlayer = ({ updatePlayer, history, match, roster }) => {
 
     const { firstName, lastName, primaryPosition, secondaryPosition, potential, overall, league, year } = formData;
 
+    const onChange = e => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
     const onSubmit = e => {
         e.preventDefault();
 
-        const playerProgress = player.progression.filter(progress => progress.year === formData.year)[0];
+        if (id) {
+            const playerProgress = player.progression.filter(progress => progress.year === formData.year)[0];
 
-        if (playerProgress) {
-            if (playerProgress.potential !== formData.potential || playerProgress.overall !== formData.overall) {
-                if (window.confirm('You are trying to update an existing progress year with updated potential or overall. Proceed?')) {
+            if (playerProgress) {
+                if (playerProgress.potential !== formData.potential || playerProgress.overall !== formData.overall) {
+                    if (window.confirm('You are trying to update an existing progress year with updated potential or overall. Proceed?')) {
+                        updatePlayer(id, formData, history);
+                    }
+                } else {
                     updatePlayer(id, formData, history);
                 }
             } else {
                 updatePlayer(id, formData, history);
             }
         } else {
-            updatePlayer(id, formData, history);
+            document.getElementById('firstName').focus();
+            createPlayer(formData, history);
+            setFormData({ firstName: '', lastName: '', primaryPosition: '', secondaryPosition: '', year: '', league: '', potential: '', overall: 0 });
         }
-    };
-
-    const onChange = e => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     return (
@@ -48,8 +54,8 @@ const UpdatePlayer = ({ updatePlayer, history, match, roster }) => {
             <Link to="/roster" className="btn btn-outline-primary">Back To Roster</Link>
             <form onSubmit={e => onSubmit(e)}>
                 <div className="text-center">
-                    <h1 className="large text-primary">Update Player Form</h1>
-                    <p className="lead"><i className="fas fa-user"></i> Update player from your roster</p>
+                    <h1 className="large text-primary">Player Form</h1>
+                    <p className="lead"><i className="fas fa-user"></i> Add or Update your player from your roster</p>
                 </div>
                 <div className="row">
                     <div className="col form-group">
@@ -159,7 +165,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    createPlayer: (formData) => dispatch(createPlayerAction(formData, dispatch)),
     updatePlayer: (playerId, formData, history) => dispatch(updatePlayerAction(playerId, formData, dispatch, history))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UpdatePlayer));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PlayerForm));
